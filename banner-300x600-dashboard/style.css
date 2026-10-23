@@ -1,0 +1,487 @@
+/* ConnectM Technology Solutions — IR display banner, 300x600
+   "Live dashboard" variant — Concept C.
+   Palette reuses the exact brand tokens already sourced for Concept A
+   (creative-fox-fabf49.netlify.app :root) — this is a different layout
+   system on the same real brand, not a new color story. */
+
+:root {
+  --dark:      #041226;
+  --dark-2:    #020a18;
+  --navy:      #0a2f6e;
+  --green:     #07a994;
+  --green-d:   #058a76;
+  --gold:      #ffcc4e;
+  --white:     #ffffff;
+  --font:      'Inter', system-ui, sans-serif;
+  --mono:      'IBM Plex Mono', ui-monospace, monospace;
+  --ease:      cubic-bezier(0.16,1,0.3,1);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:300px; height:600px; overflow:hidden; background:var(--dark); }
+body { font-family:var(--font); -webkit-font-smoothing:antialiased; }
+a { text-decoration:none; color:inherit; }
+button { border:0; background:none; font:inherit; color:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+
+#banner {
+  position:relative;
+  width:300px;
+  height:600px;
+  overflow:hidden;
+  cursor:pointer;
+  background:var(--dark);
+}
+
+/* ── Ambient dashboard background: grid + scanning sweep ─────────── */
+#grid-bg {
+  position:absolute; inset:0;
+  z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+  background-size:24px 24px;
+  background-position:-1px -1px;
+}
+#grid-bg::after {
+  content:'';
+  position:absolute; inset:0;
+  background:radial-gradient(120% 70% at 50% 0%, rgba(7,169,148,0.16) 0%, rgba(4,18,38,0) 60%);
+}
+#scanline {
+  position:absolute;
+  left:0; right:0;
+  height:120px;
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(180deg, rgba(7,169,148,0) 0%, rgba(7,169,148,0.09) 50%, rgba(7,169,148,0) 100%);
+  animation:scan 6s linear infinite;
+}
+@keyframes scan {
+  0%   { transform:translateY(-140px); }
+  100% { transform:translateY(600px); }
+}
+
+/* ── Slide stack ────────────────────────────────────────────────── */
+#slides { position:absolute; top:58px; left:0; right:0; bottom:112px; z-index:2; overflow:hidden; }
+
+.slide {
+  position:absolute; inset:0;
+  opacity:0;
+  z-index:1;
+  pointer-events:none;
+  transition:opacity 0.8s ease;
+}
+.slide.active { opacity:1; z-index:2; pointer-events:auto; }
+
+/* Top-anchored (not vertically centered) so the feed-tag/headline/lead/
+   card-header stack lands at an identical y across all four slides —
+   only the card's own height varies slide to slide. That's what keeps
+   the nav row's fixed position collision-free without needing to
+   measure each slide's actual rendered height. */
+.slide-copy {
+  width:100%;
+  padding:20px 18px 0;
+  transform:translateY(12px);
+  transition:transform 0.8s var(--ease);
+}
+.slide.active .slide-copy { transform:translateY(0); }
+
+.feed-tag {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-family:var(--mono);
+  font-weight:600;
+  font-size:8.4px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--green);
+  margin-bottom:9px;
+}
+.feed-dot {
+  width:5px; height:5px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 0 0 rgba(7,169,148,0.6);
+  animation:pulse-dot 1.8s ease-in-out infinite;
+}
+
+.slide-copy h1 {
+  font-family:var(--font);
+  font-weight:800;
+  font-size:20px;
+  line-height:1.15;
+  letter-spacing:-0.01em;
+  color:var(--white);
+}
+.slide-copy h1 em { font-style:normal; color:var(--green); }
+
+.lead {
+  margin-top:7px;
+  font-size:10.6px;
+  line-height:1.42;
+  color:rgba(255,255,255,0.66);
+  max-width:255px;
+}
+
+/* ── Readout card — the dashboard "figure" component ─────────────── */
+.readout-card {
+  margin-top:13px;
+  border:1px solid rgba(255,255,255,0.10);
+  border-radius:3px;
+  background:rgba(2,10,24,0.72);
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+  overflow:hidden;
+}
+.readout-bar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:7px 10px;
+  background:rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  font-family:var(--mono);
+  font-size:7.2px;
+  font-weight:600;
+  letter-spacing:0.1em;
+  color:rgba(255,255,255,0.55);
+}
+.readout-status {
+  display:flex;
+  align-items:center;
+  gap:4px;
+  color:var(--green);
+}
+.readout-status i {
+  width:5px; height:5px;
+  border-radius:50%;
+  background:var(--green);
+  animation:pulse-dot 1.8s ease-in-out infinite;
+}
+.readout-body { padding:12px 12px 13px; }
+
+.dash-num {
+  font-family:var(--mono);
+  font-weight:700;
+  font-size:26px;
+  line-height:1;
+  color:var(--white);
+  letter-spacing:-0.01em;
+}
+.dash-label {
+  margin-top:5px;
+  font-size:9px;
+  font-weight:500;
+  color:rgba(255,255,255,0.58);
+  line-height:1.3;
+}
+.dash-label em { font-style:normal; color:var(--green); }
+
+.dash-submetric {
+  margin-top:9px;
+  padding-top:9px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  font-size:9.5px;
+  color:rgba(255,255,255,0.55);
+}
+.dash-submetric span {
+  font-family:var(--mono);
+  font-weight:700;
+  color:var(--gold);
+  margin-right:4px;
+}
+
+/* Decorative live sparkline */
+.dash-bars {
+  margin-top:11px;
+  height:30px;
+  display:flex;
+  align-items:flex-end;
+  gap:4px;
+}
+.dash-bars span {
+  flex:1;
+  height:0;
+  background:linear-gradient(180deg, var(--green) 0%, var(--green-d) 100%);
+  border-radius:1.5px 1.5px 0 0;
+  opacity:0.85;
+  transition:height 0.9s var(--ease);
+}
+.dash-bars span:nth-child(1) { transition-delay:0.05s; }
+.dash-bars span:nth-child(2) { transition-delay:0.13s; }
+.dash-bars span:nth-child(3) { transition-delay:0.21s; }
+.dash-bars span:nth-child(4) { transition-delay:0.29s; }
+.dash-bars span:nth-child(5) { transition-delay:0.37s; }
+.slide.active .dash-bars span { height:var(--h); }
+
+/* FY24 vs FY25 comparison bars (financials slide). The bar's height is a
+   percentage, so it needs an ancestor with an explicit (not content-
+   derived) height to resolve against — that's .cbar-track, sized to
+   match .dash-compare. Putting the value/year labels outside the track
+   (rather than as flex siblings of the bar inside one auto-height
+   column) is what makes that explicit height available. */
+.dash-compare {
+  margin-top:12px;
+  display:flex;
+  align-items:flex-end;
+  gap:16px;
+  height:84px;
+}
+.cbar {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  width:44px;
+}
+.cbar-track {
+  width:100%;
+  height:56px;
+  display:flex;
+  align-items:flex-end;
+}
+.cbar span {
+  width:100%;
+  height:0;
+  background:rgba(255,255,255,0.18);
+  border-radius:2px 2px 0 0;
+  transition:height 1s var(--ease) 0.15s;
+}
+.cbar.now span { background:linear-gradient(180deg, var(--gold) 0%, #d9a936 100%); }
+.slide.active .cbar span { height:var(--h); }
+.cbar em {
+  font-style:normal;
+  font-family:var(--mono);
+  font-size:9px;
+  font-weight:700;
+  color:rgba(255,255,255,0.75);
+}
+.cbar.now em { color:var(--gold); }
+.cbar label {
+  font-family:var(--mono);
+  font-size:7.4px;
+  letter-spacing:0.06em;
+  color:rgba(255,255,255,0.45);
+}
+
+/* ── Persistent top chrome ──────────────────────────────────────── */
+#top-bar {
+  position:absolute;
+  top:0; left:0; right:0;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:15px 16px 12px;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+}
+#logo { display:flex; align-items:center; gap:7px; }
+.mark { width:18px; height:18px; flex:none; }
+#wordmark {
+  font-family:var(--font);
+  font-weight:800;
+  font-size:13px;
+  letter-spacing:0.01em;
+  color:var(--white);
+}
+#status-pill {
+  display:flex;
+  align-items:center;
+  gap:5px;
+  font-family:var(--mono);
+  font-size:7.4px;
+  font-weight:600;
+  letter-spacing:0.08em;
+  color:rgba(255,255,255,0.6);
+}
+.pulse-dot {
+  width:5px; height:5px;
+  border-radius:50%;
+  background:var(--green);
+  flex:none;
+  animation:pulse-dot 1.8s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { box-shadow:0 0 0 0 rgba(7,169,148,0.55); }
+  50%      { box-shadow:0 0 0 3.5px rgba(7,169,148,0); }
+}
+
+/* ── Persistent bottom chrome — nav row, alert line, email sign-up
+   Nav arrows sit in this fixed chrome, flanking the dots, rather than
+   floating over the rotating copy — the rotating card's height differs
+   slide to slide, so anchoring the arrows to fixed chrome is what keeps
+   them collision-free with every slide's text without per-slide tuning. */
+#bottom-fixed {
+  position:absolute;
+  left:0; right:0; bottom:0;
+  z-index:5;
+  background:linear-gradient(180deg, rgba(4,18,38,0) 0%, var(--dark-2) 22%);
+  padding:14px 18px 16px;
+}
+
+#nav-row {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:11px;
+}
+.nav-arrow {
+  width:24px; height:24px;
+  flex:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.16);
+  border-radius:50%;
+  color:rgba(255,255,255,0.85);
+  transition:background .2s ease, transform .15s ease;
+}
+.nav-arrow svg { width:11px; height:11px; }
+.nav-arrow:active { transform:scale(0.9); background:rgba(7,169,148,0.55); }
+
+#dots { display:flex; align-items:center; gap:6px; }
+.dot {
+  width:14px; height:3px;
+  border-radius:2px;
+  background:rgba(255,255,255,0.24);
+  padding:6px 0;
+  background-clip:content-box;
+  box-sizing:content-box;
+  transition:background .3s ease, width .3s ease;
+}
+.dot.active { background:var(--green); width:20px; }
+
+/* In-banner email sign-up: heading, blurb, input + Subscribe button,
+   consent line. */
+#signup { position:relative; cursor:default; }
+.sr-only {
+  position:absolute; width:1px; height:1px; overflow:hidden;
+  clip:rect(0 0 0 0); white-space:nowrap;
+}
+#signup-title {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-family:var(--font);
+  font-weight:800;
+  font-size:14px;
+  line-height:1.2;
+  color:var(--white);
+}
+#signup-sub {
+  margin-top:4px;
+  font-size:9.6px;
+  line-height:1.4;
+  color:rgba(255,255,255,0.62);
+}
+#signup-row {
+  position:relative;
+  display:flex;
+  gap:6px;
+  height:36px;
+  margin-top:9px;
+}
+#signup-email {
+  flex:1;
+  min-width:0;
+  height:100%;
+  padding:0 10px;
+  border:1px solid rgba(255,255,255,0.22);
+  border-radius:3px;
+  outline:0;
+  background:rgba(255,255,255,0.07);
+  color:var(--white);
+  font-family:var(--font);
+  font-size:11.5px;
+  font-weight:500;
+  transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+#signup-email::placeholder { color:rgba(255,255,255,0.42); }
+#signup-email:focus {
+  border-color:var(--green);
+  background:rgba(255,255,255,0.1);
+  box-shadow:0 0 0 3px rgba(7,169,148,0.22);
+}
+#signup.is-error #signup-email { border-color:#ff7a6b; animation:shake .35s ease; }
+@keyframes shake {
+  0%, 100% { transform:translateX(0); }
+  25% { transform:translateX(-4px); }
+  75% { transform:translateX(4px); }
+}
+#signup-btn {
+  flex:none;
+  height:100%;
+  padding:0 14px;
+  background:var(--green);
+  border-radius:3px;
+  color:var(--white);
+  font-weight:700;
+  font-size:11.5px;
+  box-shadow:0 6px 16px rgba(7,169,148,0.3);
+  transition:background .2s ease, transform .15s ease;
+  animation:btn-pulse 1.8s ease-in-out 2.6s 6;
+}
+#signup-btn:hover { background:var(--green-d); }
+#signup-btn:active { transform:scale(0.96); }
+#signup.is-sending #signup-btn { opacity:0.6; pointer-events:none; }
+@keyframes btn-pulse {
+  0%, 100% { box-shadow:0 6px 16px rgba(7,169,148,0.3); }
+  50%      { box-shadow:0 6px 22px rgba(7,169,148,0.6), 0 0 0 4px rgba(7,169,148,0.14); }
+}
+
+#signup-done {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  background:var(--green);
+  border-radius:3px;
+  color:var(--white);
+  font-weight:700;
+  font-size:11px;
+  opacity:0;
+  transform:scale(0.96);
+  pointer-events:none;
+  transition:opacity .35s var(--ease), transform .35s var(--ease);
+}
+#signup-done svg { width:15px; height:15px; flex:none; }
+#signup.is-done #signup-done { opacity:1; transform:none; }
+#signup.is-done #signup-email, #signup.is-done #signup-btn { visibility:hidden; }
+
+#signup-msg {
+  display:none;
+  margin-top:5px;
+  font-size:9px;
+  font-weight:600;
+  color:#ff9a8e;
+}
+#signup.is-error #signup-msg { display:block; }
+
+#signup-consent {
+  margin-top:7px;
+  font-size:7.4px;
+  line-height:1.45;
+  color:rgba(255,255,255,0.4);
+}
+
+/* ── Entrance sequence (initial load only) ─────────────────────── */
+.reveal { opacity:0; transform:translateY(14px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+#banner.is-live .reveal { opacity:1; transform:none; }
+#top-bar[data-delay="0"] { transition-delay:.05s; }
+#bottom-fixed[data-delay="4"] { transition-delay:.5s; }
+
+#click-tag-wrapper { position:absolute; width:0; height:0; overflow:hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  #scanline { animation:none; }
+  .feed-dot, .pulse-dot, .readout-status i { animation:none; }
+  #signup-btn { animation:none; }
+  .reveal { transition-duration:.01s; transition-delay:0s !important; }
+  .slide, .slide-copy { transition-duration:.2s; }
+  .dash-bars span, .cbar span { transition-duration:.2s; }
+}

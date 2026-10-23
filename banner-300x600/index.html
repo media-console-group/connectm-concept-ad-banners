@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="UTF-8">
+<meta name="ad.size" content="width=300,height=600">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=300,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>ConnectM Technology Solutions — Investor Relations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!--
+  ConnectM Technology Solutions — IR Display Banner, 300x600
+  Promotes: https://connectm-irlandingpage-polished.netlify.app/
+
+  4-slide auto-rotating carousel, same shape as the Knorex/Brand Display
+  reference banner we studied (rotating image+headline+body cards, dot
+  + arrow nav, persistent chrome on top) rebuilt on plain CSS/JS instead
+  of RequireJS + royalSlider. Every slide's copy/stat is pulled straight
+  from the live IR site — nothing invented.
+-->
+
+<div id="banner" aria-label="ConnectM Technology Solutions investor relations advertisement">
+
+  <div id="slides">
+
+    <!-- Slide 1 — Overview -->
+    <section class="slide" data-index="0">
+      <img class="slide-bg" src="assets/slide-1.jpg" alt="ConnectM grid-scale battery storage at dusk">
+      <div class="slide-scrim-top"></div>
+      <div class="slide-scrim-bottom"></div>
+      <div class="slide-copy">
+        <div class="mid-chip">
+          <span class="chip-num">$28<em>B+</em></span>
+          <span class="chip-label">U.S. Distributed<br>Energy Market</span>
+        </div>
+        <div class="copy-bottom">
+          <div class="kicker">Two Platforms · One Engine</div>
+          <h1>Powering the<br>physical layer of<br>the <em>AI&nbsp;economy.</em></h1>
+          <p>Distributed energy &amp; last-mile logistics — unified on one AI engine.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 2 — Market proof -->
+    <section class="slide" data-index="1">
+      <img class="slide-bg" src="assets/slide-2.jpg" alt="Grid infrastructure at night with city skyline">
+      <div class="slide-scrim-top"></div>
+      <div class="slide-scrim-bottom"></div>
+      <div class="slide-copy">
+        <div class="mid-chip">
+          <span class="chip-num">27<em>MWh</em></span>
+          <span class="chip-label">Live VPP Fleet<br>Illinois</span>
+        </div>
+        <div class="copy-bottom">
+          <div class="kicker">AI Infrastructure · Distributed Energy</div>
+          <h1>A live virtual<br>power plant —<br><em>on&nbsp;the&nbsp;grid&nbsp;today.</em></h1>
+          <p>Real assets, real megawatt-hours. Not a roadmap slide.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 3 — Platform / tech -->
+    <section class="slide" data-index="2">
+      <img class="slide-bg" src="assets/slide-3.jpg" alt="AI data network visualization">
+      <div class="slide-scrim-top"></div>
+      <div class="slide-scrim-bottom"></div>
+      <div class="slide-copy">
+        <div class="mid-chip">
+          <span class="chip-num">30<em>+GB</em></span>
+          <span class="chip-label">Operating Data<br>Ingested / Day</span>
+        </div>
+        <div class="copy-bottom">
+          <div class="kicker">The Shared Engine</div>
+          <h1>One AI &amp; data<br>engine behind<br><em>both&nbsp;platforms.</em></h1>
+          <p>Keen Labs — ConnectM's AI subsidiary — turns fleet data into predictive maintenance &amp; grid services.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4 — Strategic position -->
+    <section class="slide" data-index="3">
+      <img class="slide-bg" src="assets/slide-4.jpg" alt="ConnectM Keen Labs AI-driven heat pump unit">
+      <div class="slide-scrim-top"></div>
+      <div class="slide-scrim-bottom"></div>
+      <div class="slide-copy">
+        <div class="mid-chip">
+          <span class="chip-num">80<em>YRS</em></span>
+          <span class="chip-label">Defense &amp;<br>Government Channel</span>
+        </div>
+        <div class="copy-bottom">
+          <div class="kicker">Strategic Position</div>
+          <h1>$150B&nbsp;→&nbsp;$300B<br>last-mile logistics<br><em>market&nbsp;by&nbsp;2030.</em></h1>
+          <p>Plus an 80-year built-in channel into U.S. defense &amp; government.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Persistent chrome — sits above the rotating slides -->
+  <header id="top-bar" class="reveal" data-delay="0">
+    <div id="logo">
+      <img id="logo-mark" src="assets/logo-mark.png" alt="" draggable="false">
+      <span id="wordmark">CONNECTM</span>
+    </div>
+    <div id="eyebrow">INVESTOR&nbsp;RELATIONS&nbsp;·&nbsp;OTC:&nbsp;CNTM</div>
+  </header>
+
+  <button type="button" class="nav-arrow" id="arrow-prev" aria-label="Previous slide">
+    <svg viewBox="0 0 16 16"><path d="M10 3 6 8l4 5" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button type="button" class="nav-arrow" id="arrow-next" aria-label="Next slide">
+    <svg viewBox="0 0 16 16"><path d="M6 3l4 5-4 5" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <div id="bottom-fixed" class="reveal" data-delay="4">
+    <div id="dots" role="tablist" aria-label="Slide selector">
+      <button class="dot active" data-index="0" aria-label="Slide 1: Overview"></button>
+      <button class="dot" data-index="1" aria-label="Slide 2: Market proof"></button>
+      <button class="dot" data-index="2" aria-label="Slide 3: Platform"></button>
+      <button class="dot" data-index="3" aria-label="Slide 4: Strategic position"></button>
+    </div>
+
+    <div id="stat-row">
+      <div class="stat">
+        <span class="stat-num">$35.8<em>M</em></span>
+        <span class="stat-label">FY2025 Revenue</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <span class="stat-num">120<em>K+</em></span>
+        <span class="stat-label">Assets Managed</span>
+      </div>
+    </div>
+
+    <a href="#" id="cta">
+      <span>View Investor Relations</span>
+      <svg viewBox="0 0 16 16" id="cta-arrow" aria-hidden="true"><path d="M4 8h8M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+
+  <!-- Standard HTML5-ad click-tag plumbing -->
+  <div id="click-tag-wrapper"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

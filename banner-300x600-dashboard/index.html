@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="UTF-8">
+<meta name="ad.size" content="width=300,height=600">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=300,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>ConnectM Technology Solutions — Investor Alerts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!--
+  ConnectM Technology Solutions — IR display banner, 300x600
+  "Live dashboard" variant — Concept C.
+
+  Where Concept A is photo-led and Concept B is editorial/diagram-led,
+  this concept treats the banner as a live telemetry readout: monospace
+  numerals, a scanning grid background, and a per-slide "readout card"
+  that counts up on reveal (same data-count/prefix/suffix/decimals +
+  1800ms cubic ease-out convention as the IR Website Design System's
+  animated-counter component). No photography or hand-drawn figures —
+  the visual is 100% CSS/SVG so the "live data" framing is literal, not
+  decorative, and it re-plays the count-up every time a slide comes back
+  around, which reads as the dashboard "refreshing."
+
+  Same carousel mechanics as Concepts A/B (4 slides, dots + arrows,
+  fixed chrome, clickTag) and the exact same real stats already sourced
+  for those two concepts — nothing new is invented here, only re-cut.
+
+  Concept C's one required addition: a persistent in-banner email
+  sign-up for the investor mailing list. The viewer types their email
+  straight into the ad and submits without leaving the page; the field
+  swaps to a confirmation state on success. Where the address is sent
+  is configured by SIGNUP_ENDPOINT in script.js (see the note there).
+  Every other click on the creative still goes to the single clickTag
+  destination, per standard ad-serving convention.
+-->
+
+<div id="banner" aria-label="ConnectM Technology Solutions investor relations advertisement — sign up for investor email alerts">
+
+  <div id="grid-bg" aria-hidden="true"></div>
+  <div id="scanline" aria-hidden="true"></div>
+
+  <div id="slides">
+
+    <!-- Slide 1 — Overview -->
+    <section class="slide" data-index="0">
+      <div class="slide-copy">
+        <div class="feed-tag"><span class="feed-dot"></span>LIVE FEED · 001</div>
+        <h1>Two networks.<br>One AI engine.<br><em>Live&nbsp;on&nbsp;the&nbsp;grid.</em></h1>
+        <p class="lead">Distributed energy &amp; last-mile logistics — orchestrated by one shared engine.</p>
+
+        <div class="readout-card">
+          <div class="readout-bar"><span>MARKET.SIZE</span><span class="readout-status"><i></i>LIVE</span></div>
+          <div class="readout-body">
+            <div class="dash-num" data-count="28" data-prefix="$" data-suffix="B+">$0B+</div>
+            <div class="dash-label">U.S. Distributed Energy — Addressable Market</div>
+            <div class="dash-bars" aria-hidden="true">
+              <span style="--h:38%"></span><span style="--h:58%"></span><span style="--h:47%"></span><span style="--h:74%"></span><span style="--h:92%"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 2 — Live VPP fleet -->
+    <section class="slide" data-index="1">
+      <div class="slide-copy">
+        <div class="feed-tag"><span class="feed-dot"></span>LIVE FEED · 002</div>
+        <h1>A live virtual<br>power plant —<br><em>on&nbsp;the&nbsp;grid&nbsp;today.</em></h1>
+        <p class="lead">Real assets, real megawatt-hours in Illinois — not a roadmap slide, a live feed.</p>
+
+        <div class="readout-card">
+          <div class="readout-bar"><span>VPP.FLEET</span><span class="readout-status"><i></i>LIVE</span></div>
+          <div class="readout-body">
+            <div class="dash-num" data-count="27" data-suffix="MWh">0MWh</div>
+            <div class="dash-label">Illinois VPP Fleet — Live Capacity</div>
+            <div class="dash-submetric"><span>120K+</span> assets under management</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 3 — Data engine -->
+    <section class="slide" data-index="2">
+      <div class="slide-copy">
+        <div class="feed-tag"><span class="feed-dot"></span>LIVE FEED · 003</div>
+        <h1>30+ GB of fleet<br>&amp; grid data —<br><em>ingested&nbsp;daily.</em></h1>
+        <p class="lead">Keen Labs — ConnectM's AI subsidiary — turns fleet data into predictive services.</p>
+
+        <div class="readout-card">
+          <div class="readout-bar"><span>DATA.INGEST</span><span class="readout-status"><i></i>LIVE</span></div>
+          <div class="readout-body">
+            <div class="dash-num" data-count="30" data-prefix="+" data-suffix="GB/day">+0GB/day</div>
+            <div class="dash-label">Operating Data Ingested</div>
+            <div class="dash-bars" aria-hidden="true">
+              <span style="--h:44%"></span><span style="--h:60%"></span><span style="--h:70%"></span><span style="--h:66%"></span><span style="--h:96%"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4 — Financials -->
+    <section class="slide" data-index="3">
+      <div class="slide-copy">
+        <div class="feed-tag"><span class="feed-dot"></span>LIVE FEED · 004</div>
+        <h1>Revenue up 58%.<br><em>$35.8M&nbsp;FY2025.</em></h1>
+        <p class="lead">$11.5M gross profit (+93%), 32% gross margin — losses narrowing year over year.</p>
+
+        <div class="readout-card">
+          <div class="readout-bar"><span>FY2025.REVENUE</span><span class="readout-status"><i></i>LIVE</span></div>
+          <div class="readout-body">
+            <div class="dash-num" data-count="35.8" data-prefix="$" data-suffix="M" data-decimals="1">$0.0M</div>
+            <div class="dash-label">FY2025 Revenue <em>+58% YoY</em></div>
+            <div class="dash-compare" aria-hidden="true">
+              <div class="cbar"><em>$22.7M</em><div class="cbar-track"><span style="--h:63%"></span></div><label>FY24</label></div>
+              <div class="cbar now"><em>$35.8M</em><div class="cbar-track"><span style="--h:100%"></span></div><label>FY25</label></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Persistent chrome — sits above the rotating slides -->
+  <header id="top-bar" class="reveal" data-delay="0">
+    <div id="logo">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M25 21 L58 54" stroke="#07a994" stroke-width="23" stroke-linecap="round" fill="none"/>
+        <path d="M25 91 L58 58" stroke="#0a2f6e" stroke-width="23" stroke-linecap="round" fill="none"/>
+        <rect x="61" y="43" width="26" height="26" rx="5.5" transform="rotate(45 74 56)" fill="#ffcc4e"/>
+      </svg>
+      <span id="wordmark">CONNECTM</span>
+    </div>
+    <div id="status-pill"><span class="pulse-dot"></span>LIVE&nbsp;·&nbsp;OTC:&nbsp;CNTM</div>
+  </header>
+
+  <div id="bottom-fixed" class="reveal" data-delay="4">
+    <div id="nav-row">
+      <button type="button" class="nav-arrow" id="arrow-prev" aria-label="Previous slide">
+        <svg viewBox="0 0 16 16"><path d="M10 3 6 8l4 5" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div id="dots" role="tablist" aria-label="Slide selector">
+        <button class="dot active" data-index="0" aria-label="Slide 1: Overview"></button>
+        <button class="dot" data-index="1" aria-label="Slide 2: Live VPP fleet"></button>
+        <button class="dot" data-index="2" aria-label="Slide 3: Data engine"></button>
+        <button class="dot" data-index="3" aria-label="Slide 4: Financials"></button>
+      </div>
+      <button type="button" class="nav-arrow" id="arrow-next" aria-label="Next slide">
+        <svg viewBox="0 0 16 16"><path d="M6 3l4 5-4 5" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <!-- In-banner mailing-list sign-up. Submits to SIGNUP_ENDPOINT in
+         script.js; the success/error states swap in place. -->
+    <form id="signup" novalidate>
+      <h2 id="signup-title"><span class="pulse-dot"></span>Stay Updated on ConnectM</h2>
+      <p id="signup-sub">SEC filings, earnings &amp; press — straight to your inbox.</p>
+      <label class="sr-only" for="signup-email">Email address</label>
+      <div id="signup-row">
+        <input type="email" id="signup-email" name="email" placeholder="Email address" autocomplete="email" inputmode="email" spellcheck="false" required>
+        <button type="submit" id="signup-btn">Subscribe</button>
+        <div id="signup-done" aria-hidden="true">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5 6.5 11.5 12.5 4.5" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>You're subscribed — watch your inbox.</span>
+        </div>
+      </div>
+      <p id="signup-msg" role="status" aria-live="polite"></p>
+      <p id="signup-consent">By subscribing, you consent to receive investor-related emails from ConnectM Technology Solutions. You can unsubscribe at any time.</p>
+    </form>
+  </div>
+
+  <!-- Standard HTML5-ad click-tag plumbing -->
+  <div id="click-tag-wrapper"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
